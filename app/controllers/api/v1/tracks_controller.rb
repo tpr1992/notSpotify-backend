@@ -4,7 +4,6 @@ class Api::V1::TracksController < ApplicationController
 # parsed_token = JSON.parse(spotify_token)
 
   def index
-    byebug
     @tracks = Track.all
     render json: @tracks
   end

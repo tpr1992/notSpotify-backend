@@ -19,9 +19,16 @@ Rails.application.routes.draw do
     #     post '/user', to: "users#create"
     #   end
     # end
+    get "/oauth", to: "tracks#oauth"
+    get "/play_track", to: "tracks#play_track"
+    get "/pause_track", to: "tracks#pause_track"
+
+
       resources :tracks do
         collection do
           get :top_100
+          get :play_track
+          get :pause_track
           get :random
           get :search
         end

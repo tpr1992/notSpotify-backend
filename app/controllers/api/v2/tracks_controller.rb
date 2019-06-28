@@ -1,5 +1,4 @@
 class Api::V2::TracksController < ApplicationController
-
   # def self.new_from_spotify_track(spotify_track)
   #   Track.new(
   #     spotify_id: spotify_track.id,
@@ -15,6 +14,38 @@ class Api::V2::TracksController < ApplicationController
   #   track.save
   #   track
   # end
+
+  @@sdk
+
+  def oauth
+    @accounts = Spotify::Accounts.new
+    test = {
+       client_id: @accounts.instance_variable_get(:@client_id),
+       client_secret: @accounts.instance_variable_get(:@client_secret),
+       redirect_uri: @accounts.instance_variable_get(:@redirect_uri),
+       grant_type: "authorization_code",
+       code: params[:code]
+     }
+     request = HTTParty.post("https://accounts.spotify.com/api/token", body: test)
+     response = request.parsed_response.with_indifferent_access
+     @session = Spotify::Accounts::Session.new(@accounts, response[:access_token], response[:expires_in], response[:refresh_token], response[:scope])
+     @@sdk = Spotify::SDK.new(@session)
+     # byebug
+  end
+
+  def play_track
+      @@sdk.connect.devices[0].resume!
+        # @@sdk.connect.devices[0].play!({
+        #   uri: "spotify:track:5ChkMS8OtdzJeqyybCc9R5",
+        #   position_ms: 0
+        #   })
+  end
+
+  def pause_track
+    # if @@sdk = true
+      @@sdk.connect.devices[0].pause!
+    # end
+  end
 
   def index
     @tracks = Track.all

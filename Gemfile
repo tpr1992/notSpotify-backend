@@ -19,8 +19,9 @@ gem 'dotenv-rails'
 
 
 gem 'active_model_serializers'
+gem "spotify-ruby"
 gem 'rspotify'
-gem 'omniauth-spotify'
+# gem 'omniauth-spotify'
 
 # gem 'rest-client'
 
