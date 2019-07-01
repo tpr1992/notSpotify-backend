@@ -15,6 +15,8 @@ class Api::V2::TracksController < ApplicationController
   #   track
   # end
 
+  # @@sdk.connect.devices[0].playback.methods
+
   @@sdk
 
   def oauth
@@ -30,7 +32,16 @@ class Api::V2::TracksController < ApplicationController
      response = request.parsed_response.with_indifferent_access
      @session = Spotify::Accounts::Session.new(@accounts, response[:access_token], response[:expires_in], response[:refresh_token], response[:scope])
      @@sdk = Spotify::SDK.new(@session)
-     # byebug
+     byebug
+  end
+
+  def get_currently_playing
+    @track = Track.new(name: @@sdk.connect.devices[0].playback.item.name, artist: @@sdk.connect.devices[0].playback.artist.name, image: @@sdk.connect.devices[0].playback.item.album.images[0].url, preview: @@sdk.connect.devices[0].playback.item.preview_url, spotify_id: @@sdk.connect.devices[0].playback.item.id)
+    # @track = @@sdk.connect.devices[0].playback.item.name
+    render json: @track
+    # @@sdk.connect.devices[0].playback.artist
+    # render json: @@sdk.connect.devices[0].playback.artist
+
   end
 
   def play_track
@@ -42,9 +53,15 @@ class Api::V2::TracksController < ApplicationController
   end
 
   def pause_track
-    # if @@sdk = true
       @@sdk.connect.devices[0].pause!
-    # end
+  end
+
+  def next_track
+    @@sdk.connect.devices[0].next!
+  end
+
+  def prev_track
+    @@sdk.connect.devices[0].previous!
   end
 
   def index

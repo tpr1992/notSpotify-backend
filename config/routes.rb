@@ -22,13 +22,20 @@ Rails.application.routes.draw do
     get "/oauth", to: "tracks#oauth"
     get "/play_track", to: "tracks#play_track"
     get "/pause_track", to: "tracks#pause_track"
+    get "/next_track", to: "tracks#next_track"
+    get "/prev_track", to: "tracks#prev_track"
+    get "/get_currently_playing", to: "tracks#get_currently_playing"
+
 
 
       resources :tracks do
         collection do
           get :top_100
+          get :get_currently_playing
           get :play_track
           get :pause_track
+          get :next_track
+          get :prev_track
           get :random
           get :search
         end
