@@ -32,7 +32,8 @@ class Api::V2::TracksController < ApplicationController
      response = request.parsed_response.with_indifferent_access
      @session = Spotify::Accounts::Session.new(@accounts, response[:access_token], response[:expires_in], response[:refresh_token], response[:scope])
      @@sdk = Spotify::SDK.new(@session)
-     byebug
+
+     # byebug
   end
 
   def get_currently_playing
@@ -41,7 +42,21 @@ class Api::V2::TracksController < ApplicationController
     render json: @track
     # @@sdk.connect.devices[0].playback.artist
     # render json: @@sdk.connect.devices[0].playback.artist
+  end
 
+  def get_playlists
+    # if @@sdk.valid?
+      # @playlists = RSpotify::User.find(@@sdk.me.info.id).playlists
+      @playlists = RSpotify::User.find('1271062927').playlists.as_json
+      # byebug
+      render json: @playlists
+    # end
+  end
+
+  def search_tracks
+    @results = RSpotify::Track.search(params[:query])
+    # byebug
+    render json: @results.map {|result| result.as_json}
   end
 
   def play_track

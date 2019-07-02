@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :playlists
   namespace :api do
     namespace :v1 do
       resources :user_tracks
@@ -25,20 +26,25 @@ Rails.application.routes.draw do
     get "/next_track", to: "tracks#next_track"
     get "/prev_track", to: "tracks#prev_track"
     get "/get_currently_playing", to: "tracks#get_currently_playing"
+    get "/get_playlists", to: "tracks#get_playlists"
+    post "/search_tracks", to: "tracks#search_tracks"
 
 
 
       resources :tracks do
         collection do
-          get :top_100
           get :get_currently_playing
           get :play_track
           get :pause_track
           get :next_track
           get :prev_track
-          get :random
-          get :search
+          get :search_tracks
         end
+    end
+    resources :users do
+      collection do
+        get :index
+      end
     end
   end
 end
