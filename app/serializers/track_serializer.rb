@@ -1,5 +1,5 @@
 class TrackSerializer < ActiveModel::Serializer
-  attributes :id, :name, :artist, :image, :preview, :spotify_id, @playlists
+  attributes :id, :name, :artist, :image, :preview, :spotify_id
 
   def get_currently_playing
     object.get_currently_playing
