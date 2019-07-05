@@ -21,7 +21,7 @@ Bundler.require(*Rails.groups)
 Dotenv::Railtie.load
 
 RSpotify::authenticate(ENV["SPOTIFY_CLIENT_ID"], ENV["SPOTIFY_CLIENT_SECRET"])
-#
+
 
 
 module Mod5ProjectBackend
