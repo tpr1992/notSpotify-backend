@@ -25,6 +25,8 @@ class Api::V2::TracksController < ApplicationController
   # RSpotify::Playlist.search('jazz')
   # RSpotify::Recommendations.available_genre_seeds
   # RSpotify::Recommendations.generate(seed_tracks: ['0c6xIDDpzE81m2q797ordA'], seed_genres: ['jazz'], seed_artists: ['4NHQUGzhtTLFvgF5SZesLK'], target_energy: 1.0)
+  # RSpotify::User.find('1271062927').recently_played
+  # RSpotify::Track.search('like a rolling stone').first.audio_features
   # https://www.rubydoc.info/github/guilhermesad/rspotify/master/RSpotify/Recommendations
 
   @@sdk
@@ -50,7 +52,7 @@ class Api::V2::TracksController < ApplicationController
 
      # @@spotify_user = RSpotify::User.find(@@sdk.me.info.id)
 
-     byebug
+     # byebug
   end
 
   def get_currently_playing
@@ -68,6 +70,11 @@ class Api::V2::TracksController < ApplicationController
       # byebug
       render json: @playlists
     # end
+  end
+
+  def browse_featured_playlists
+    @featured_playlists = RSpotify::Playlist.browse_featured.as_json
+    render json: @featured_playlists
   end
 
   def search_tracks

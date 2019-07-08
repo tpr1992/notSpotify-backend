@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     get "/prev_track", to: "tracks#prev_track"
     get "/get_currently_playing", to: "tracks#get_currently_playing"
     get "/get_playlists", to: "tracks#get_playlists"
+    get "/browse_featured_playlists", to: "tracks#browse_featured_playlists"
     post "/search_tracks", to: "tracks#search_tracks"
 
 
