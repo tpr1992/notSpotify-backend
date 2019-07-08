@@ -79,8 +79,9 @@ class Api::V2::TracksController < ApplicationController
 
   def search_tracks
     @results = RSpotify::Track.search(params[:query])
+    @artist_results = RSpotify::Artist.search(params[:query])
     # byebug
-    render json: @results.map {|result| result.as_json}
+    render json: @results.map {|result| result.as_json} && @artist_results.map {|result| result.as_json}
   end
 
   def play_track
