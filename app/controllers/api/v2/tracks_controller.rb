@@ -64,12 +64,10 @@ class Api::V2::TracksController < ApplicationController
   end
 
   def get_playlists
-    # if @@sdk.valid?
       # @playlists = RSpotify::User.find(@@sdk.me.info.id).playlists
       @playlists = RSpotify::User.find('1271062927').playlists.as_json
       # byebug
       render json: @playlists
-    # end
   end
 
   def browse_featured_playlists
@@ -81,7 +79,17 @@ class Api::V2::TracksController < ApplicationController
     @results = RSpotify::Track.search(params[:query])
     @artist_results = RSpotify::Artist.search(params[:query])
     # byebug
-    render json: @results.map {|result| result.as_json} && @artist_results.map {|result| result.as_json}
+    # render json: @results.map {|result| result.as_json}
+    track_results = @results.map {|result| result.as_json}
+    artist_results = @artist_results.map {|result| result.as_json}
+    all_results = artist_results[0..2] + track_results
+    render json: all_results
+    # byebug
+    # track_results
+    # render json: => {
+    #   :results => @result.as_json,
+    #   :artist_results => @artist_results.as_json
+    # }
   end
 
   def play_track
