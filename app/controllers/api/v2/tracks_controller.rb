@@ -30,7 +30,7 @@ class Api::V2::TracksController < ApplicationController
   # https://www.rubydoc.info/github/guilhermesad/rspotify/master/RSpotify/Recommendations
 
   @@sdk
-
+# byebug
   def oauth
     @accounts = Spotify::Accounts.new
     body = {
