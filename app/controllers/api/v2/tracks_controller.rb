@@ -65,7 +65,11 @@ class Api::V2::TracksController < ApplicationController
 
   def get_playlists
       # @playlists = RSpotify::User.find(@@sdk.me.info.id).playlists
-      @playlists = RSpotify::User.find('1271062927').playlists.as_json
+      # byebug
+      # if @@sdk.present?
+      #   @playlists = RSpotify::User.find(@@sdk.me.info.id).playlists.as_json
+      # else
+        @playlists = RSpotify::User.find('1271062927').playlists.as_json
       # byebug
       render json: @playlists
   end
@@ -78,11 +82,13 @@ class Api::V2::TracksController < ApplicationController
   def search_tracks
     @results = RSpotify::Track.search(params[:query])
     @artist_results = RSpotify::Artist.search(params[:query])
+    @album_results = RSpotify::Album.search(params[:query])
     # byebug
     # render json: @results.map {|result| result.as_json}
     track_results = @results.map {|result| result.as_json}
     artist_results = @artist_results.map {|result| result.as_json}
-    all_results = artist_results[0..2] + track_results
+    album_results = @album_results.map {|result| result.as_json}
+    all_results = artist_results[0..2] + track_results + album_results
     render json: all_results
     # byebug
     # track_results
@@ -94,10 +100,6 @@ class Api::V2::TracksController < ApplicationController
 
   def play_track
       @@sdk.connect.devices[0].resume!
-        # @@sdk.connect.devices[0].play!({
-        #   uri: "spotify:track:5ChkMS8OtdzJeqyybCc9R5",
-        #   position_ms: 0
-        #   })
   end
 
   def pause_track
