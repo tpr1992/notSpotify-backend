@@ -2,7 +2,7 @@
 
 Mod 5 Project Backend
 
-To run the backend, please run `rails s` on port 3001.
+To run the backend, please run `rails s -p 3001`
 
 - This is my final project for Flatiron School's immersive software engineering course. It is intended to be my own personal take on a Spotify style music streaming app. Multiple serializers are used as well as integration with OAuth.
 
