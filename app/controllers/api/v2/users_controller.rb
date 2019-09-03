@@ -1,9 +1,5 @@
 class Api::V2::UsersController < ApplicationController
 
-  # def set_user
-  #
-  # end
-
   def index
     @users = User.all
     render json: @users
@@ -19,4 +15,5 @@ class Api::V2::UsersController < ApplicationController
     @user.save
     render json: @user
   end
+  
 end
