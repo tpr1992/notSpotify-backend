@@ -1,5 +1,8 @@
 ### notSpotify();
 
+![notSpotify with player open](https://i.imgur.com/6fZpj3l.png)
+
+
 Mod 5 Project Backend
 
 To run the backend, please run `rails s -p 3001`
@@ -14,6 +17,6 @@ To run the backend, please run `rails s -p 3001`
 
 - Semantic ui is used for styling as well as custom CSS. In order to use the app, users must have a valid Spotify Premium account, as well as have a local server running which can be found at (https://github.com/tpr1992/Mod-5-Project-Frontend).
 
-Please let me know if you have any suggestions or recommendations on how to better implement things as this project is a way for me to refine my skills. I will periodically update this over the coming months and as of today, Aug 2, 2019, this app is still currently a work in progress.
+Please let me know if you have any suggestions or recommendations on how to better implement things as this project is a way for me to refine my skills. I will periodically update this over the coming months and as of today, Sept 2, 2019, this app is still currently a work in progress.
 
 #######################################
